@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pa-Note - Profile</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background-color: #f3f4f6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            position: relative;
+        }
+        
+        .home-link {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background-color: #000;
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.3s;
+        }
+        
+        .home-link:hover {
+            background-color: #333;
+        }
+        
+        .home-link svg {
+            width: 20px;
+            height: 20px;
+        }
+        
+        .page-title {
+            width: 100%;
+            max-width: 400px;
+            background: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 24px;
+            text-align: center;
+            margin-bottom: 16px;
+        }
+        
+        .page-title h1 {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1f2937;
+        }
+        
+        .profile-card {
+            width: 100%;
+            max-width: 400px;
+            background: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .tab-button {
+            flex: 1;
+            padding: 16px;
+            text-align: center;
+            font-weight: 500;
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+        
+        .tab-button:hover {
+            background-color: #f9fafb;
+        }
+        
+        .tab-button.active {
+            background-color: #f3f4f6;
+            border-bottom: 2px solid #000;
+        }
+        
+        .tab-content {
+            padding: 24px;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .profile-avatar {
+            width: 128px;
+            height: 128px;
+            border-radius: 50%;
+            background-color: #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+        }
+        
+        .profile-avatar svg {
+            width: 64px;
+            height: 64px;
+            color: #9ca3af;
+        }
+        
+        .profile-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1f2937;
+            text-align: center;
+            margin-bottom: 16px;
+        }
+        
+        .profile-info {
+            text-align: left;
+            margin-top: 16px;
+        }
+        
+        .profile-info-item {
+            margin-bottom: 12px;
+        }
+        
+        .profile-info-item strong {
+            color: #374151;
+        }
+        
+        .profile-info-item p {
+            color: #6b7280;
+            margin-top: 4px;
+        }
+        
+        .form-group {
+            margin-bottom: 16px;
+        }
+        
+        .form-group label {
+            display: block;
+            color: #374151;
+            margin-bottom: 8px;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #000;
+            box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .btn-primary {
+            background-color: #000;
+            color: #fff;
+        }
+        
+        .btn-primary:hover {
+            background-color: #333;
+        }
+        
+        .btn-danger {
+            background-color: #dc2626;
+            color: #fff;
+        }
+        
+        .btn-danger:hover {
+            background-color: #b91c1c;
+        }
+        
+        .settings-section {
+            margin-bottom: 24px;
+        }
+        
+        .settings-section h4 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 16px;
+        }
+        
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px;
+            background-color: #f9fafb;
+            border-radius: 6px;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            width: 44px;
+            height: 24px;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #d1d5db;
+            transition: 0.4s;
+            border-radius: 24px;
+        }
+        
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 2px;
+            bottom: 2px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+        
+        .toggle-switch input:checked + .toggle-slider {
+            background-color: #000;
+        }
+        
+        .toggle-switch input:checked + .toggle-slider:before {
+            transform: translateX(20px);
+        }
+        
+        .divider {
+            border-top: 1px solid #e5e7eb;
+            padding-top: 24px;
+            margin-top: 24px;
+        }
+        
+        .btn + .btn {
+            margin-top: 12px;
+        }
+        
+        .center-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="home-link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
+        </svg>
+        Home
+    </a>
+
+    <div class="page-title">
+        <h1>Profile Page</h1>
+    </div>
+
+    <div class="profile-card">
+        <!-- Tab Navigation -->
+        <div class="tabs">
+            <button onclick="switchTab('view')" id="viewTab" class="tab-button active">
+                View Profile
+            </button>
+            <button onclick="switchTab('edit')" id="editTab" class="tab-button">
+                Edit Profile
+            </button>
+            <button onclick="switchTab('settings')" id="settingsTab" class="tab-button">
+                Settings
+            </button>
+        </div>
+
+        <!-- Tab Content -->
+        <div class="tab-content">
+            <!-- View Profile Tab -->
+            <div id="viewProfileTab">
+                <div class="center-content">
+                    <div class="profile-avatar">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                    </div>
+                    <h2 id="display-name" class="profile-name">User</h2>
+                    <div class="profile-info">
+                        <div class="profile-info-item">
+                            <strong>Email:</strong>
+                            <p id="display-email">user@example.com</p>
+                        </div>
+                        <div class="profile-info-item">
+                            <strong>Notes Created:</strong>
+                            <p id="notes-count">0 Notes</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Edit Profile Tab -->
+            <div id="editProfileTab" class="hidden">
+                <form id="profileForm" onsubmit="saveProfile(event)">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" placeholder="Enter your name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="Enter your email">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save Profile Changes</button>
+                </form>
+            </div>
+
+            <!-- User Settings Tab -->
+            <div id="userSettingsTab" class="hidden">
+                <div class="settings-section">
+                    <h4>Theme</h4>
+                    <div class="toggle-container">
+                        <span>Dark Mode</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="darkModeToggle" onchange="toggleDarkMode()">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="divider">
+                    <h4>Data Management</h4>
+                    <button onclick="exportNotes()" class="btn btn-primary">Export Notes</button>
+                    <button onclick="clearAllData()" class="btn btn-danger">Clear All Data</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Load profile data on page load
+        function loadProfile() {
+            const profile = JSON.parse(localStorage.getItem('userProfile') || '{}');
+            const notes = JSON.parse(localStorage.getItem('notes') || '[]');
+            const nightMode = localStorage.getItem('nightMode') === 'true';
+            
+            // Update display fields
+            document.getElementById('display-name').textContent = profile.name || 'User';
+            document.getElementById('display-email').textContent = profile.email || 'user@example.com';
+            document.getElementById('notes-count').textContent = `${notes.length} Notes`;
+            
+            // Update edit form
+            document.getElementById('name').value = profile.name || '';
+            document.getElementById('email').value = profile.email || '';
+            
+            // Update dark mode toggle
+            document.getElementById('darkModeToggle').checked = nightMode;
+        }
+
+        function saveProfile(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            
+            const profile = { name, email };
+            localStorage.setItem('userProfile', JSON.stringify(profile));
+            
+            // Update display
+            document.getElementById('display-name').textContent = name || 'User';
+            document.getElementById('display-email').textContent = email || 'user@example.com';
+            
+            alert('Profile saved successfully!');
+            switchTab('view');
+        }
+
+        function toggleDarkMode() {
+            const isChecked = document.getElementById('darkModeToggle').checked;
+            localStorage.setItem('nightMode', isChecked);
+            alert('Theme preference saved! Changes will apply when you return to the notes page.');
+        }
+
+        function exportNotes() {
+            const notes = JSON.parse(localStorage.getItem('notes') || '[]');
+            
+            if (notes.length === 0) {
+                alert('No notes to export!');
+                return;
+            }
+            
+            const dataStr = JSON.stringify(notes, null, 2);
+            const blob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'pa-note-backup.json';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            alert('Notes exported successfully!');
+        }
+
+        function clearAllData() {
+            if (confirm('Are you sure you want to clear all data? This will delete all your notes and profile information. This action cannot be undone.')) {
+                localStorage.removeItem('notes');
+                localStorage.removeItem('userProfile');
+                localStorage.removeItem('nightMode');
+                
+                alert('All data cleared successfully!');
+                loadProfile();
+            }
+        }
+
+        function switchTab(tabName) {
+            // Hide all tab contents
+            document.getElementById('viewProfileTab').classList.add('hidden');
+            document.getElementById('editProfileTab').classList.add('hidden');
+            document.getElementById('userSettingsTab').classList.add('hidden');
+
+            // Remove active state from all tab buttons
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.classList.remove('active');
+            });
+
+            // Show selected tab content
+            const tabMapping = {
+                'view': 'viewProfileTab',
+                'edit': 'editProfileTab',
+                'settings': 'userSettingsTab'
+            };
+            document.getElementById(tabMapping[tabName]).classList.remove('hidden');
+
+            // Add active state to selected tab button
+            document.getElementById(`${tabName}Tab`).classList.add('active');
+        }
+
+        // Initialize on page load
+        loadProfile();
+    </script>
+</body>
+</html>

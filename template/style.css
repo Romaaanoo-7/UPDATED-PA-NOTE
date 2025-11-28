@@ -4,6 +4,15 @@
     box-sizing: border-box;
 }
 
+/* Utility Classes */
+.hidden {
+    display: none !important;
+}
+
+.note-card:hover .note-content.hidden {
+    display: block !important;
+}
+
 body {
     font-family: 'Segoe UI', system-ui, sans-serif;
     line-height: 1.6;
@@ -589,9 +598,8 @@ body.night-mode {
         width: 100%;
         justify-content: flex-end;
     }
-}
-
-@media (max-width: 768px) {
+    
+    /* Night mode responsive styles */
     .night-mode .container {
         background-color: #000000;
     }

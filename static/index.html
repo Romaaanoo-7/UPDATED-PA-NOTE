@@ -6,15 +6,6 @@
     <title>Pa-Note - Your Personal Note App</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="../template/style.css">
-    <style>
-        .hidden {
-            display: none !important;
-        }
-        
-        .note-card:hover .note-content.hidden {
-            display: block !important;
-        }
-    </style>
 </head>
 <body>
     <!-- Vertical Navigation Bar -->
@@ -202,7 +193,7 @@
         let currentFilter = '';
 
         function generateUniqueId() {
-            return Date.now() + Math.random().toString(36).substr(2, 9);
+            return Date.now() + Math.random().toString(36).substring(2, 11);
         }
 
         function showSection(section) {

@@ -9,25 +9,12 @@ function initTheme() {
     const savedTheme = localStorage.getItem('theme') || 'light';
     document.documentElement.setAttribute('data-theme', savedTheme);
     themeCheckbox.checked = savedTheme === 'dark';
-    updateLogo(savedTheme);
 }
 
 function toggleTheme(e) {
     const theme = e.target.checked ? 'dark' : 'light';
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
-    updateLogo(theme);
-}
-
-function updateLogo(theme) {
-    // Smooth opacity transition for logo replacement
-    logo.style.opacity = '0';
-    setTimeout(() => {
-        logo.src = theme === 'dark'
-            ? 'PanotePencilDark.svg'
-            : 'PanotePencil.svg';
-        logo.style.opacity = '1';
-    }, 200);
 }
 
 // Password Toggle
@@ -125,7 +112,7 @@ async function handleRegister(e) {
             password: '***'
         });
 
-        alert('Account created! Please login.');
+        alert('Account created successfully! You can now login.');
         switchForm('login');
 
     } catch (err) {

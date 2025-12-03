@@ -1,4 +1,4 @@
-`:root {
+:root {
     /* Light Mode Variables */
     --bg-color: #f0f2f5;
     --card-bg: #ffffff;
@@ -67,6 +67,8 @@ body {
 .logo {
     height: 80px;
     width: auto;
+    max-width: 100%;
+    object-fit: contain;
     transition: var(--transition);
 }
 
